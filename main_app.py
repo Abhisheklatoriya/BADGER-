@@ -7,9 +7,9 @@ st.set_page_config(page_title="Badger Tools Hub", page_icon="🦡", layout="wide
 # --- 2. Define your Apps ---
 # Key: Name shown in sidebar, Value: The filename of your existing apps
 APPS = {
-    "🦡 Asset Matrix Creator": "streamlit_app.py",
+    "🦡 Asset Matrix Creator": "matrix_creator.py",
     "📦 Smartly Asset Checker": "app.py",
-    "📁 Dynamic File Matcher": "match_app.py" # Ensure this filename matches your 3rd app
+    "📁 Dynamic File Matcher": "file_matcher.py" # Ensure this filename matches your 3rd app
 }
 
 def run_app(file_path):
