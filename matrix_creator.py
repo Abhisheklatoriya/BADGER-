@@ -2,15 +2,14 @@ import streamlit as st
 import streamlit.components.v1 as components
 import os
 
-# Get the directory where this current script (app.py) is located
-parent_dir = os.path.dirname(os.path.abspath(__file__))
+# 1. Get the directory that THIS specific file is sitting in
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
-st.set_page_config(page_title="Badger | Asset Matrix Creator", page_icon="🦡", layout="wide")
+# 2. Create absolute paths for your CSS and JS
+css_path = os.path.join(current_dir, 'styles.css')
+js_path = os.path.join(current_dir, 'script.js')
 
-# Use os.path.join to create the full path to your CSS and JS files
-css_path = os.path.join(parent_dir, 'styles.css')
-js_path = os.path.join(parent_dir, 'script.js')
-
+# 3. Open them using those absolute paths
 with open(css_path, 'r') as f:
     css = f.read()
 
