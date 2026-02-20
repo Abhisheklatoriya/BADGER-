@@ -2,19 +2,19 @@ import streamlit as st
 import streamlit.components.v1 as components
 import os
 
-# --- 1. PATH FIX: Identify the folder this script is sitting in ---
-# This ensures that CSS/JS files are found even when run from a main_app.py
+# --- 1. PATH RESOLUTION (The Fix) ---
+# This identifies the folder where matrix_creator.py is located
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# --- 2. CONFIG FIX: Handle the "set_page_config" restriction ---
+# --- 2. PAGE CONFIG SAFETY ---
+# Wrapping this in a try/except prevents the app from crashing 
+# when run inside your main router (main_app.py)
 try:
     st.set_page_config(page_title="Badger | Asset Matrix Creator", page_icon="🦡", layout="wide")
 except st.errors.StreamlitAPIException:
-    # If this app is running inside a main router, the config is already set.
-    # We catch the error so the app doesn't crash.
     pass
 
-# --- 3. LOAD ASSETS: Use absolute paths to prevent FileNotFoundError ---
+# --- 3. LOAD ASSETS WITH ABSOLUTE PATHS ---
 css_path = os.path.join(current_dir, 'styles.css')
 js_path = os.path.join(current_dir, 'script.js')
 
