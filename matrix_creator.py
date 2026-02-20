@@ -1,21 +1,21 @@
-import streamlit as st
-import streamlit.components.v1 as components
 import os
+import streamlit as st
 
-# --- 1. PAGE CONFIG SAFETY ---
-# This prevents the "set_page_config() can only be called once" error
+# 1. Find the folder where THIS file lives
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# 2. Build the full path to your assets
+css_path = os.path.join(current_dir, 'styles.css')
+js_path = os.path.join(current_dir, 'script.js')
+
+# 3. Open them with the full path
 try:
-    st.set_page_config(page_title="Badger | Asset Matrix Creator", page_icon="🦡", layout="wide")
-except st.errors.StreamlitAPIException:
-    pass
-
-# --- 2. LOAD ASSETS ---
-# Using encoding='utf-8' is vital for the emojis in your CSS/JS
-with open('styles.css', 'r', encoding='utf-8') as f:
-    css = f.read()
-
-with open('script.js', 'r', encoding='utf-8') as f:
-    js = f.read()
+    with open(css_path, 'r', encoding='utf-8') as f:
+        css = f.read()
+    with open(js_path, 'r', encoding='utf-8') as f:
+        js = f.read()
+except FileNotFoundError:
+    st.error(f"Could not find assets in {current_dir}. Check your file names!")
 
 # --- 3. THE REST OF YOUR CODE ---
 html_content = f'''
