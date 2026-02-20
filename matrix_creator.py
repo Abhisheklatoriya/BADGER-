@@ -2,20 +2,29 @@ import streamlit as st
 import streamlit.components.v1 as components
 import os
 
-# 1. Get the directory that THIS specific file is sitting in
+# --- 1. PATH FIX: Identify the folder this script is sitting in ---
+# This ensures that CSS/JS files are found even when run from a main_app.py
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# 2. Create absolute paths for your CSS and JS
+# --- 2. CONFIG FIX: Handle the "set_page_config" restriction ---
+try:
+    st.set_page_config(page_title="Badger | Asset Matrix Creator", page_icon="🦡", layout="wide")
+except st.errors.StreamlitAPIException:
+    # If this app is running inside a main router, the config is already set.
+    # We catch the error so the app doesn't crash.
+    pass
+
+# --- 3. LOAD ASSETS: Use absolute paths to prevent FileNotFoundError ---
 css_path = os.path.join(current_dir, 'styles.css')
 js_path = os.path.join(current_dir, 'script.js')
 
-# 3. Open them using those absolute paths
-with open(css_path, 'r') as f:
+with open(css_path, 'r', encoding='utf-8') as f:
     css = f.read()
 
-with open(js_path, 'r') as f:
+with open(js_path, 'r', encoding='utf-8') as f:
     js = f.read()
 
+# --- 4. HTML CONTENT ---
 html_content = f'''
 <!DOCTYPE html>
 <html lang="en">
@@ -273,6 +282,7 @@ html_content = f'''
 </html>
 '''
 
+# --- 5. STREAMLIT RENDERING ---
 st.markdown("""
 <style>
     .stApp > header { display: none; }
